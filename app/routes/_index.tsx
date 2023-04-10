@@ -40,6 +40,7 @@ export default function Index() {
           </li>
         ))}
       </ul>
+      <Link to={`events/new`}>New event</Link>
     </div>
   );
 }
