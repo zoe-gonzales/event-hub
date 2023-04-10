@@ -1,4 +1,5 @@
 import { Form } from "@remix-run/react";
+import DatePicker from "react-datepicker";
 
 export default function EventRoute() {
   return (
@@ -16,8 +17,8 @@ export default function EventRoute() {
         <label>
           <input type="text" name="location" />
         </label>
-        <input name="start" />
-        <input name="end" />
+        <DatePicker name="start" onChange={(date) => console.log(date)} />
+        <DatePicker name="end" onChange={(date) => console.log(date)} />
       </Form>
     </main>
   );
