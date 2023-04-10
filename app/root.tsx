@@ -6,7 +6,16 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import reactDatepickerCss from "react-datepicker/dist/react-datepicker.min.css";
+import type { LinksFunction } from "@remix-run/node";
+import reactDatepickerStylesheet from "react-datepicker/dist/react-datepicker.min.css";
+import tailwindStylesheet from "./styles/tailwind.css";
+
+export const links: LinksFunction = () => {
+  return [
+    { rel: "stylesheet", href: tailwindStylesheet },
+    { rel: "stylesheet", href: reactDatepickerStylesheet },
+  ];
+};
 
 export default function App() {
   return (
@@ -14,7 +23,6 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <link rel="stylesheet" href={reactDatepickerCss} />
         <Meta />
         <Links />
       </head>
