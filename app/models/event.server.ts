@@ -1,3 +1,5 @@
+import type { Event } from "@prisma/client";
+
 import { prisma } from "~/db.server";
 
 export async function getEvents() {
@@ -11,4 +13,13 @@ export async function getEvents() {
       location: true,
     },
   });
+}
+
+export async function createEvent(
+  event: Pick<
+    Event,
+    "title" | "description" | "start" | "end" | "location" | "userId"
+  >
+) {
+  return prisma.event.create({ data: event });
 }
