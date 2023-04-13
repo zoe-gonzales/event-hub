@@ -1,5 +1,6 @@
 import { json, type LoaderFunction } from "@remix-run/node";
 import { Link, useLoaderData, type V2_MetaFunction } from "@remix-run/react";
+import dayjs from "dayjs";
 import { getEvents } from "../models/event.server";
 
 type Event = {
@@ -27,6 +28,24 @@ export const loader: LoaderFunction = async () => {
 const cardClassName =
   "bg-theme-beige rounded w-2/3 mx-auto my-10 p-8 rounded-xl";
 
+const formatDate = (start: string, end: string): string => {
+  const startDate = dayjs(start).get("date");
+  const endDate = dayjs(end).get("date");
+  console.log(startDate === endDate);
+
+  let endFormatStr = "";
+  if (startDate === endDate) {
+    endFormatStr += "h:mma";
+  } else {
+    endFormatStr += "MMM D h:mma";
+  }
+
+  const formattedStart = dayjs(start).format("MMM D h:mma");
+  const formattedEnd = dayjs(end).format(endFormatStr);
+
+  return `${formattedStart} - ${formattedEnd}`;
+};
+
 export default function Index() {
   const { events } = useLoaderData() as LoaderData;
 
@@ -52,7 +71,7 @@ export default function Index() {
               </Link>
               <p className="my-3 font-mono">{event.description}</p>
               <p className="my-3 font-light">{event.location}</p>
-              <p className="my-3">{`${event.start} - ${event.end}`}</p>
+              <p className="my-3">{formatDate(event.start, event.end)}</p>
             </section>
           </li>
         ))}
