@@ -24,23 +24,39 @@ export const loader: LoaderFunction = async () => {
   return json({ events });
 };
 
+const cardClassName =
+  "bg-theme-beige rounded w-2/3 mx-auto my-10 p-8 rounded-xl";
+
 export default function Index() {
   const { events } = useLoaderData() as LoaderData;
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
+      <nav className="flex justify-end bg-theme-dark-blue h-16">
+        <Link
+          className="bg-theme-beige p-3 m-2 rounded-lg text-theme-black hover:bg-white"
+          to={`events/new`}
+        >
+          New event
+        </Link>
+      </nav>
       <ul>
         {events.map((event) => (
           <li key={event.id}>
-            <Link to={`events/${event.id}`}>{event.title}</Link>
-            <p>{event.description}</p>
-            <p>{event.location}</p>
-            <p>{event.start}</p>
-            <p>{event.end}</p>
+            <section className={cardClassName}>
+              <Link
+                className="text-2xl font-semibold hover:underline"
+                to={`events/${event.id}`}
+              >
+                {event.title}
+              </Link>
+              <p className="my-3 font-mono">{event.description}</p>
+              <p className="my-3 font-light">{event.location}</p>
+              <p className="my-3">{`${event.start} - ${event.end}`}</p>
+            </section>
           </li>
         ))}
       </ul>
-      <Link to={`events/new`}>New event</Link>
     </div>
   );
 }
