@@ -23,3 +23,8 @@ export async function createEvent(
 ) {
   return prisma.event.create({ data: event });
 }
+
+export async function getEvent(eventId: string) {
+  const id = Number(eventId);
+  return prisma.event.findUnique({ where: { id } });
+}
