@@ -39,9 +39,13 @@ export const loader: LoaderFunction = async ({ params }) => {
 };
 
 export default function EditEventRoute() {
-  const [startDateTime, setStartDateTime] = useState<Date | null>(null);
-  const [endDateTime, setEndDateTime] = useState<Date | null>(null);
   const { eventDetails } = useLoaderData();
+  const [startDateTime, setStartDateTime] = useState<Date | null>(
+    new Date(eventDetails.start)
+  );
+  const [endDateTime, setEndDateTime] = useState<Date | null>(
+    new Date(eventDetails.end)
+  );
 
   return (
     <main className="my-14 mx-auto w-3/4">
@@ -55,6 +59,7 @@ export default function EditEventRoute() {
             <input
               type="text"
               name="title"
+              defaultValue={eventDetails.title}
               className="border-solid border-2 border-theme-dark-blue rounded block w-full mt-2 p-2"
             />
           </label>
@@ -65,6 +70,7 @@ export default function EditEventRoute() {
             Description{" "}
             <textarea
               name="description"
+              defaultValue={eventDetails.description}
               className="border-solid border-2 border-theme-dark-blue rounded block w-full mt-2 p-2"
             />
           </label>
@@ -76,6 +82,7 @@ export default function EditEventRoute() {
             <input
               type="text"
               name="location"
+              defaultValue={eventDetails.location}
               className="border-solid border-2 border-theme-dark-blue rounded block w-full mt-2 p-2"
             />
           </label>
