@@ -22,7 +22,6 @@ export const action: ActionFunction = async ({ request }) => {
     location,
     userId: 1,
   };
-  console.log("PARAMS: ", params);
   await createEvent(params);
 
   return redirect("/");
