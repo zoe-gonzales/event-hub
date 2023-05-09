@@ -28,3 +28,14 @@ export async function getEvent(eventId: string) {
   const id = Number(eventId);
   return prisma.event.findUnique({ where: { id } });
 }
+
+export async function updateEvent(
+  eventId: string,
+  event: Pick<
+    Event,
+    "title" | "description" | "start" | "end" | "location" | "userId"
+  >
+) {
+  const id = Number(eventId);
+  return prisma.event.update({ where: { id }, data: event });
+}

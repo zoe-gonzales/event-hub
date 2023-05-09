@@ -3,9 +3,12 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import DatePicker from "react-datepicker";
-import { createEvent, getEvent } from "../models/event.server";
+import { updateEvent, getEvent } from "../models/event.server";
 
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ params, request }) => {
+  if (!params.id) {
+    return; // TODO: handle error
+  }
   const formData = await request.formData();
 
   const title = formData.get("title") as string;
@@ -14,7 +17,7 @@ export const action: ActionFunction = async ({ request }) => {
   const end = formData.get("end") as string;
   const location = formData.get("location") as string;
 
-  const params = {
+  const formParams = {
     title,
     description,
     start: new Date(start),
@@ -22,9 +25,9 @@ export const action: ActionFunction = async ({ request }) => {
     location,
     userId: 1,
   };
-  await createEvent(params);
+  await updateEvent(params.id, formParams);
 
-  return redirect("/");
+  return redirect(`/events/${params.id}`);
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
