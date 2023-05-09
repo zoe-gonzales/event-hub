@@ -38,7 +38,12 @@ export default function EventDetailsRoute() {
       >
         Back to events
       </Link>
-      <Link to="./edit">Edit event</Link>
+      <Link
+        to="./edit"
+        className="p-3 my-2 mx-2 rounded-lg text-theme-dark-blue border-solid border border-theme-dark-blue"
+      >
+        Edit event
+      </Link>
       <h2 className="mt-6 mb-3 text-2xl font-semibold">{eventDetails.title}</h2>
       <p className="my-3 font-mono">{eventDetails.description}</p>
       <p className="my-3 font-light">{eventDetails.location}</p>
